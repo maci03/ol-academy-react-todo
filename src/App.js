@@ -10,10 +10,12 @@ class App extends React.Component {
     }
   }
 
+  handleAddTodo = (newTodo) => this.setState({todos: [...this.state.todos, newTodo] });
+
   render() {
     return (
       <div className="App">
-        <Form todos={this.state.todos} />
+        <Form todos={this.state.todos} onAddTodo={this.handleAddTodo} />
       </div>
     );
   }

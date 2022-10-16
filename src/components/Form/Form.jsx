@@ -5,19 +5,32 @@ class Form extends React.Component {
     super(props)
     this.state = {
       title: "",
-      title2: "ghghgh"
+      error: false
     }
   }
 
   handleChange = (e) => this.setState({ title: e.target.value });
+
   handleSubmit = (e) => {
-    e.preventDefault()
+    e.preventDefault();
+    const todoExists = this.props.todos.find(td => td.title === this.state.title);
+    if (todoExists){
+      this.setState({ error: true })
+      return;
+    }
+    const newTodo = {
+      id: this.props.todos.length + 1,
+      title: this.state.title
+    }
+
+    this.props.onAddTodo(newTodo);
   }
 
   render(){
     return (
       <form onSubmit={this.handleSubmit}>
         <input type="text" value={this.state.title} onChange={this.handleChange} />
+        {this.state.error && <small>დავალება ამ სახელობით არსებობს</small>}
         <button type="submit">დამატება</button>
       </form>
     )
