@@ -13,6 +13,8 @@ class Form extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
+    console.log('this.state (child)', this.state);
+    
     const todoExists = this.props.todos.find(td => td.title === this.state.title);
     if (todoExists){
       this.setState({ error: true })
@@ -22,7 +24,8 @@ class Form extends React.Component {
       id: this.props.todos.length + 1,
       title: this.state.title
     }
-
+    
+    this.setState({ error: false });
     this.props.onAddTodo(newTodo);
   }
 
